@@ -391,7 +391,8 @@ def _setup_input_array_lower(array_a, array_ref, remove_zero_col, remove_zero_ro
     # scale the matrix when translate is False, but weight is True
     else:
         if weight is not None:
-            array_a = np.dot(np.diag(weight), array_a)
+            array_a = array_a * weight.reshape((-1,1))
+            # array_a = np.dot(np.diag(weight), array_a) # Too slow
 
     if scale:
         array_a, _ = _scale_array(array_a, array_ref)
