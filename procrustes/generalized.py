@@ -27,7 +27,7 @@ from procrustes import orthogonal
 from procrustes.utils import _check_arraytypes
 
 
-def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True):
+def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True, translate=False, weight=None):
     r"""Generalized Procrustes Analysis.
 
     Parameters
@@ -74,7 +74,7 @@ def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True):
         raise ValueError("Number of iterations should be a positive number.")
     if ref is None:
         # the first array will be used to build the initial ref
-        array_aligned = [array_list[0]] + [_orthogonal(arr, array_list[0]) for arr in
+        array_aligned = [array_list[0]] + [_orthogonal(arr, array_list[0], translate, weight) for arr in
                                            array_list[1:]]
         ref = np.mean(array_aligned, axis=0)
     else:
@@ -84,7 +84,7 @@ def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True):
     distance_gpa = np.inf
     for _ in np.arange(n_iter):
         # align to ref
-        array_aligned = [_orthogonal(arr, ref) for arr in array_list]
+        array_aligned = [_orthogonal(arr, ref, translate, weight) for arr in array_list]
         # the mean
         new_ref = np.mean(array_aligned, axis=0)
         # todo: double check if the error is defined in the right way
@@ -96,7 +96,7 @@ def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True):
     return array_aligned, new_distance_gpa
 
 
-def _orthogonal(arr_a, arr_b):
+def _orthogonal(arr_a, arr_b, translate=False, weight=None):
     """Orthogonal Procrustes transformation and returns the transformed array."""
-    res = orthogonal(arr_a, arr_b, translate=False, scale=False, unpad_col=False, unpad_row=False)
+    res = orthogonal(arr_a, arr_b, translate=translate, scale=False, unpad_col=False, unpad_row=False, weight=weight)
     return np.dot(res["new_a"], res["t"])
