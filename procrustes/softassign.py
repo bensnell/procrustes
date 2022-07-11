@@ -26,9 +26,9 @@ from copy import deepcopy
 import warnings
 
 import numpy as np
-from procrustes.kopt import kopt_heuristic_single
-from procrustes.permutation import permutation
-from procrustes.utils import compute_error, ProcrustesResult, setup_input_arrays
+from .kopt import kopt_heuristic_single
+from .permutation import permutation
+from .utils import compute_error, ProcrustesResult, setup_input_arrays
 
 __all__ = [
     "softassign",

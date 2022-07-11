@@ -23,8 +23,8 @@
 """Generalized Procrustes Module."""
 
 import numpy as np
-from procrustes import orthogonal
-from procrustes.utils import _check_arraytypes
+from . import orthogonal
+from .utils import _check_arraytypes
 
 
 def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True, translate=False, weight=None):

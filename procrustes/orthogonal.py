@@ -25,7 +25,7 @@
 # import warnings
 
 import numpy as np
-from procrustes.utils import compute_error, ProcrustesResult, setup_input_arrays
+from .utils import compute_error, ProcrustesResult, setup_input_arrays
 import scipy
 
 __all__ = [

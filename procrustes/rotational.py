@@ -23,7 +23,7 @@
 """Rotational-Orthogonal Procrustes Module."""
 
 import numpy as np
-from procrustes.utils import compute_error, ProcrustesResult, setup_input_arrays
+from .utils import compute_error, ProcrustesResult, setup_input_arrays
 import scipy
 
 

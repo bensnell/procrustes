@@ -29,12 +29,12 @@ except ImportError:
     __version__ = "0.0.0.post0"
 
 
-from procrustes.utils import *
-from procrustes.kopt import *
-from procrustes.orthogonal import *
-from procrustes.permutation import *
-from procrustes.rotational import *
-from procrustes.softassign import *
-from procrustes.symmetric import *
-from procrustes.generic import *
-from procrustes.generalized import *
+from .utils import *
+from .kopt import *
+from .orthogonal import *
+from .permutation import *
+from .rotational import *
+from .softassign import *
+from .symmetric import *
+from .generic import *
+from .generalized import *
