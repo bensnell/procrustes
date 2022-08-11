@@ -26,6 +26,12 @@ import numpy as np
 from . import orthogonal
 from .utils import _check_arraytypes
 
+# Get the generalized reference array to initialize GPA
+def build_generalized_reference_array(array_list, translate, weight):
+    # the first array will be used to build the initial ref
+    array_aligned = [array_list[0]] + [_orthogonal(arr, array_list[0], translate, weight) for arr in array_list[1:]]
+    ref = np.mean(array_aligned, axis=0)
+    return ref
 
 def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True, translate=False, weight=None):
     r"""Generalized Procrustes Analysis.
@@ -74,9 +80,7 @@ def generalized(array_list, ref=None, tol=1.e-7, n_iter=200, check_finite=True, 
         raise ValueError("Number of iterations should be a positive number.")
     if ref is None:
         # the first array will be used to build the initial ref
-        array_aligned = [array_list[0]] + [_orthogonal(arr, array_list[0], translate, weight) for arr in
-                                           array_list[1:]]
-        ref = np.mean(array_aligned, axis=0)
+        ref = build_generalized_reference_array(array_list, translate, weight)
     else:
         array_aligned = [None] * len(array_list)
         ref = ref.copy()
